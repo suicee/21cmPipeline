@@ -24,5 +24,27 @@ def calculate_1dpk(dT,box_size,kbins,norm=True):
     if norm:
         pk = pk*ks**3/2/np.pi**2
     
-
     return  ks,pk
+
+def calculate_2dpk(lc, box_size, kbins, norm=True):
+    '''
+    calculate 2d Cylinder power spectrum using tools21cm
+
+    Args:
+        :lc(np.array): 3D lightcone
+        :box_size(float or list): size of the cube in Mpc
+        :kbins(int): number of bins for kper and kpar
+        :norm(bool): normalize the power spectrum or not
+
+    Returns:
+        :kper_mid(np.array): kper values
+        :kpar_mid(np.array): kpar values
+        :p2d(np.array): 2D power spectrum
+    '''
+
+    p2d, kper_mid, kpar_mid = t2c.power_spectrum_2d(lc, kbins=kbins, box_dims=box_size, binning='log')
+
+    if norm:
+        pass
+
+    return kper_mid, kpar_mid, p2d
