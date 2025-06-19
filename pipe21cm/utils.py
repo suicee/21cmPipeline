@@ -1,7 +1,7 @@
 import numpy as np
 from matplotlib import pyplot as plt
 
-def plot_lightcone(lc, los_cor, box_size, type='physical'):
+def plot_lightcone(lc, los_cor, box_size, type='physical',cmap=None):
     """
     Plot the lightcone.
     
@@ -18,7 +18,9 @@ def plot_lightcone(lc, los_cor, box_size, type='physical'):
     zj = lc[lc.shape[0]//2]
 
     fig, axs = plt.subplots(1,1, figsize=(14, 3))
-    im = axs.pcolor(xi, yi, zj, cmap='jet')
+    if cmap is None:
+        cmap = 'jet'
+    im = axs.pcolor(xi, yi, zj, cmap=cmap)
 
     if type == 'physical':
         axs.set_xlabel('z', fontsize=18)

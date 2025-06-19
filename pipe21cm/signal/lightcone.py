@@ -44,6 +44,7 @@ def build_observational_lightcone(file_list,
                                   redshifts, 
                                   box_size,
                                   dnu=0.1,
+                                  physical_lightcone=None,
                                   n_output_cell=None):
     """
     Build a observational lightcone from a list of 21cm brightness temperature boxs using tools21cm.
@@ -55,6 +56,7 @@ def build_observational_lightcone(file_list,
         :redshifts: list of float. The redshifts of the brightness temperature maps. Should be in the same order as the file_list.
         :box_size: float. The size of the box in Mpc.
         :dnu: float. The frequency interval in MHz. Default is 100 kHz.
+        :physical_lightcone: np.ndarray. The physical lightcone. If provided, this will be used instead of building a new one from the file_list.
         :n_output_cell: int. The number of output cells in the observational lightcone. Default is set to the same as the input lightcone.
                             tools21cm will pad the slice whose angular size is smaller than the maximum angular size to match the maximum angular size.
                             Then the slices are interpolated to the same number of cells.
@@ -63,8 +65,11 @@ def build_observational_lightcone(file_list,
         :obs_lc: np.ndarray. The observational lightcone.
         :obs_freq: np.ndarray. The frequency axis of the observational lightcone.
     """
-
-    lc, zs_lc = build_physical_lightcone(file_list, redshifts, box_size)    
+    if physical_lightcone is None:
+        lc, zs_lc = build_physical_lightcone(file_list, redshifts, box_size)  
+    else:
+        lc = physical_lightcone
+        zs_lc = redshifts  
 
     angular_size_deg = t2c.angular_size_comoving(box_size, redshifts)
 
@@ -82,7 +87,8 @@ def build_observational_lightcone(file_list,
                                                                 input_z_low,
                                                                 output_dnu,
                                                                 output_dtheta,
-                                                                input_box_size_mpc=input_box_size_mpc)
+                                                                input_box_size_mpc=input_box_size_mpc,
+                                                                verbose=False)
 
     return obs_lc, obs_freq
     

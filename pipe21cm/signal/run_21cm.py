@@ -10,7 +10,8 @@ def run_coeval_bt(
     hii_eff_factor=30,
     ion_tvir_min=4.7,
     random_seed=42,
-    save_dir=None
+    save_dir=None,
+    N_THREADS=4
 ):
     """
     Run a coeval simulation and return the brightness temperature map.
@@ -23,12 +24,13 @@ def run_coeval_bt(
         :ion_tvir_min: float. The minimum virial temperature of halos.
         :random_seed: int. The random seed for the simulation.
         :save_dir: str. The directory to save the results to. If None, the results are not saved.
+        :N_THREADS: int. The number of threads to use for the simulation. Default is 4.
 
     Returns:
         :results: list of np.ndarray. The brightness temperature map(s) at the specified redshift(s).
     """
     # Define user and astro parameters based on individual arguments
-    user_params = {"HII_DIM": cell_dim, "BOX_LEN": box_size}
+    user_params = {"HII_DIM": cell_dim, "BOX_LEN": box_size, "N_THREADS":N_THREADS}
     astro_params = p21c.AstroParams({"HII_EFF_FACTOR": hii_eff_factor, "ION_Tvir_MIN": ion_tvir_min})
 
     # Run the coeval simulation
