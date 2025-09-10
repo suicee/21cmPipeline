@@ -26,7 +26,7 @@ def calculate_1dpk(dT,box_size,kbins,norm=True):
     
     return  ks,pk
 
-def calculate_2dpk(lc, box_size, kbins, norm=True):
+def calculate_2dpk(lc, box_size, kbins, nu_axis=2, norm=True):
     '''
     calculate 2d Cylinder power spectrum using tools21cm
 
@@ -42,7 +42,7 @@ def calculate_2dpk(lc, box_size, kbins, norm=True):
         :p2d(np.array): 2D power spectrum
     '''
 
-    p2d, kper_mid, kpar_mid = t2c.power_spectrum_2d(lc, kbins=kbins, box_dims=box_size, binning='log')
+    p2d, kper_mid, kpar_mid = t2c.power_spectrum_2d(lc, kbins=kbins, box_dims=box_size, binning='log', nu_axis=2)
 
     if norm:
         pass
