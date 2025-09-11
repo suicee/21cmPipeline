@@ -1,5 +1,6 @@
 ## Environment Setup Instructions
 
+### Step 1: Install packages for forward modeling
 **Create and activate the environment**
 
 ```bash
@@ -29,4 +30,21 @@ At the beginning of your notebook or Python script, add the pipeline to your sys
 ```python
 import sys
 sys.path.append("/work/dante/scripts/ska_summer_school/21cmPipeline")
+```
+### Step 2: Install packages for SBI
+
+**Install `ltu-ili`**
+ (This is my preferred SBI package, but feel free to use your own choice.)
+
+```
+git clone https://github.com/maho3/ltu-ili.git
+cd ltu-ili
+pip install ".[pytorch]"
+```
+
+**Install additional tools for inference analysis**
+ (Again, you may use alternatives if you prefer.)
+
+```
+pip install corner
 ```
